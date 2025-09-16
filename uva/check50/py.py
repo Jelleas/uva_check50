@@ -6,8 +6,8 @@ import sys
 import pathlib
 import attr
 import os
-import imp
 import subprocess
+import types
 
 class PythonException(check50.Failure):
 	def __init__(self, exception):
@@ -103,7 +103,7 @@ def run(path, argv=tuple(), stdin=tuple(), set_attributes=(("__name__", "__main_
 		moduleName = path.stem
 
 		check50.log(f"importing {moduleName}")
-		mod = imp.new_module(moduleName)
+		mod = types.ModuleType(moduleName)
 
 		# overwrite attributes
 		for attr, value in set_attributes:
